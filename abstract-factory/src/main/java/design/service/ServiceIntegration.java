@@ -1,5 +1,6 @@
 package design.service;
 
+import design.decoders.interfaces.RegisterAccountDecoder;
 import design.decoders.interfaces.RegisterClientDecoder;
 import design.factory.DecoderFactory;
 
@@ -8,12 +9,14 @@ import design.factory.DecoderFactory;
  */
 public class ServiceIntegration {
 
-    public void registerClient(String text, String origem){
+    public void registerClient(String text, String origem) {
 
         DecoderFactory decoderFactory = DecoderFactory.getFactory(origem);
 
         RegisterClientDecoder msgDecoder = decoderFactory
                 .createRegisterClientDecoder();
+
+        RegisterAccountDecoder msgAccountDecoder = decoderFactory.createRegisterAccountDecoder();
 
         msgDecoder.decode(text);
     }

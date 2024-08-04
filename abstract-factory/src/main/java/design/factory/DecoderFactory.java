@@ -11,13 +11,25 @@ import design.decoders.interfaces.RegisterClientDecoder;
 public abstract class DecoderFactory {
 
     public abstract RegisterClientDecoder createRegisterClientDecoder();
+
     public abstract RegisterAccountDecoder createRegisterAccountDecoder();
 
-    public static DecoderFactory getFactory(String type){
-        switch (type){
-            case "X": return new XMLDecoderFactory();
-            case "Y": return new CSVDecoderFactory();
-            case "Z": return new FixedTextDecoderFactory();
+    public static DecoderFactory getFactory(String type) {
+        DecoderFactory decoderFactory = null;
+        switch (type) {
+            case "X":
+                decoderFactory = new XMLDecoderFactory();
+                break;
+            case "Y":
+                decoderFactory = new CSVDecoderFactory();
+                break;
+            case "Z":
+                decoderFactory = new FixedTextDecoderFactory();
+                break;
+            default:
+                throw new RuntimeException("Unknown decoder type: " + type);
         }
+
+        return decoderFactory;
     }
 }
